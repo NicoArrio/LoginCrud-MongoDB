@@ -8,7 +8,6 @@ This project is a backend developed with Node.js, Express, and MongoDB, which im
 - Mongoose: Data modeling library for MongoDB and Node.js, used to define schemas, validate data, and manage interaction with the database.
 
 //Backend Features//
-
 User Authentication:
 - User registration with validation and secure storage of passwords.
 - Login with verification of credentials and generation of authentication tokens.
@@ -21,3 +20,11 @@ Security Middleware:
 
 Error Management:
 - Centralized error handling for a consistent and clear response to failures or invalid inputs.
+
+//Project Structure//
+Routes:
+- Definition of RESTful routes to handle operations on users, including /register, /login, /users, and other protected routes.
+Controllers:
+- Business logic implemented in controllers that handle requests and responses, interacting with the database, and applying authentication logic.
+Models:
+- Data schemas defined with Mongoose, including validations and relationships between data when necessary.
