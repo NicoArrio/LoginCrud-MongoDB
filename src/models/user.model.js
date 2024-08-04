@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 //esto es la estructura de como queremos q se vea en mongoDB
 //el mongoose.Schema es una INSTANCIA y x eso se agrega el new 
 const userSchema = new mongoose.Schema({

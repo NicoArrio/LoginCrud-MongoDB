@@ -91,6 +91,16 @@ export const logout = (req, res) =>{
     return res.sendStatus(200); //no enviamos ningun mensj
 };
 
-export const profile = (req,res) => {
-    res.send('profile');
+export const profile = async (req,res) => {
+    const userFound = await User.findById(req.user.id)//devuelve todos los datos q pertenecen a ese user
+    //sino encontramos nada
+    if(!userFound) return res.status(400).json({message: "user not found"});
+    //if found return this data
+    return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+        createdAt: userFound.createdAt,
+        updateAt: userFound.updateAt,
+    })
 };
