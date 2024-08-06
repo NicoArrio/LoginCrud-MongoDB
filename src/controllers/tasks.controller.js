@@ -1,4 +1,5 @@
 import Task from '../models/task.model.js';
+
 //obtener una tarea
 export const getTasks = async (req, res) => {
     const tasks = await Task.find({ //peticion para buscar todas las tareas donde el user ID sea igual con el ID autenticado
