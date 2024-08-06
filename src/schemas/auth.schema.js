@@ -2,6 +2,9 @@ import {z} from 'zod';
 
 //nos permite dar tipos de dato
 export const registerSchema = z.object({
+    username: z.string({
+        required_error: "username is required",
+    }),
     email: z
         .string({
             required_error: 'email is required'
