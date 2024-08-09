@@ -1,11 +1,16 @@
 import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import authRoutes from './routes/auth.routes.js';
 import tasksRoutes from './routes/task.routes.js'
 
 const app = express(); // Inicializar la aplicación
+
+app.use(cors({//permite conectar todos los dominios a este servidor
+    origin: 'http://localhost:5173',//dominio especifico q queremos q se conecte
+})); 
 
 app.use(morgan('dev')); // Usar morgan para el logging
 
