@@ -9,8 +9,7 @@ export const register = async (req, res) => {
         
         //validacion del usuario
         const userFound = await User.findOne({email})
-        if (userFound) 
-            return res.status(400).json({message: ['The email already exists']}) //mens modo array para tener el mismo formato q zod
+        if (userFound) return res.status(400).json(['The email already exists']) //mens modo array para tener el mismo formato q zod
 
         /*metodo hash:
         * convierte un string -> serie de caracte aleatorios

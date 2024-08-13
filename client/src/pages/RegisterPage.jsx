@@ -9,7 +9,7 @@ function RegisterPage (){
         handleSubmit, 
         formState: { errors}, 
     } = useForm(); // registrar inputs
-    const {signup, isAuthenticated} = useAuth();
+    const {signup, isAuthenticated, errors: registerErrors} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,6 +22,11 @@ function RegisterPage (){
 
     return(
         <div className='bg-zinc-800 max-w-md p-10 rounded-md'>
+            {
+                registerErrors.map((error, i) => (
+                    <div className='bg-red-500 p-2 text-white'>{error}</div>
+                ))
+            }
             {/* handleSubmit te va a dar los valores, y muestra por consola */}
             {/* evento nativo de HTML/JSX que se dispara cuando el formulario es enviado. */}
             <form onSubmit={ConstOnSubmit}> 

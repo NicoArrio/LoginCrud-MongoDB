@@ -18,6 +18,7 @@ export const useAuth = () => {
 export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null) //usuario q va a ser leido en toda la app
     const [isAuthenticated, setIsAuthenticated] = useState(false);//si se registra correctamente, se autentifica
+    const [errors, setErrors] = useState([]);
 
     /*llame a signup: va a hacer la peticion, va a recibir 
     *la respuesta y cuando reciba la respuesta. 
@@ -30,13 +31,14 @@ export const AuthProvider = ({children}) => {
             setUser(res.data);//lo establecemos
             setIsAuthenticated(true);//autenticado
         } catch (error) {
-            console.log(error)
+            console.log(error.response)
+            setErrors(error.response.data)
         }
     }
 
     //exportamos signup
     return <AuthContext.Provider 
-        value={{ signup, user, isAuthenticated, }}>  {/* //valor obj, xq son varios datos */}
+        value={{ signup, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
             {children} {/* Asegúrate de que esté en minúscula */}
     </AuthContext.Provider>
 }
