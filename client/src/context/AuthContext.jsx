@@ -18,7 +18,7 @@ export const useAuth = () => {
 export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null) //usuario q va a ser leido en toda la app
     const [isAuthenticated, setIsAuthenticated] = useState(false);//si se registra correctamente, se autentifica
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState([]); //areglo vacio para evitar errores
 
     /*llame a signup: va a hacer la peticion, va a recibir 
     *la respuesta y cuando reciba la respuesta. 

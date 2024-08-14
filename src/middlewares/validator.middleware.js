@@ -8,6 +8,6 @@ export const validateSchema = (schema) => (req,res,next) => {
         next();
     } catch (error) {
         //para q no se muestre toda la info innecesario, hay q filtrarlo
-        return res.status(400).json({error: error.errors.map(error => error.message)})
+        return res.status(400).json(error.errors.map(error => error.message))//no return object sino un array de errores
     }
 };

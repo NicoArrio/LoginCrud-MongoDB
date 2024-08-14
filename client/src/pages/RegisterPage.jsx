@@ -24,7 +24,9 @@ function RegisterPage (){
         <div className='bg-zinc-800 max-w-md p-10 rounded-md'>
             {
                 registerErrors.map((error, i) => (
-                    <div className='bg-red-500 p-2 text-white'>{error}</div>
+                    <div className='bg-red-500 p-2 text-white' key={i}> {/* cada div q va a recorrer vamos a colocarle un key q sea con el indice */}
+                        {error}
+                    </div>
                 ))
             }
             {/* handleSubmit te va a dar los valores, y muestra por consola */}
