@@ -1,5 +1,6 @@
 
 import {useForm} from 'react-hook-form';
+import { useAuth } from '../context/AuthContext';
 
 function LoginPage() {
 
@@ -8,12 +9,15 @@ function LoginPage() {
         handleSubmit, 
         formState: {errors} //func q revisa los errores
     } = useForm(); //trae las sig funciones
+    const {signin} = useAuth();
+
 
     const onSubmit = handleSubmit(data => {
         console.log(data)}) // ejecucion de handleSubmit donde me va a devolver los datos
     return(
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
            <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
+                <h1 className='text-2xl font-bold'>Login</h1>
                 <form onSubmit={onSubmit}> 
                         {/* Captura los valores tipeados por el usuario */}
                         <input 
@@ -35,8 +39,7 @@ function LoginPage() {
                         )} {/* mensaje error de formState */} 
 
                         {/* Botón de registro */}
-                        <button type="submit"> Register </button>
-                        <div>button</div>
+                        <button type="submit"> sign in </button>
                 </form>
            </div>
         </div>

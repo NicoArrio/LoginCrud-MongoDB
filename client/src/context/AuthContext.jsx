@@ -1,6 +1,6 @@
 import { Children, createContext, useContext, useState} from "react";
 
-import { registerRequest } from "../api/auth";
+import { registerRequest, loginRequest } from "../api/auth";
 
 export const AuthContext = createContext();
 
@@ -36,9 +36,18 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    //exportamos signup
+    const signin = async (user) => {
+        try {
+            const res = await loginRequest(user)
+            console.log(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //exportamos signup y signin
     return <AuthContext.Provider 
-        value={{ signup, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
+        value={{ signup, signin, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
             {children} {/* Asegúrate de que esté en minúscula */}
     </AuthContext.Provider>
 }
