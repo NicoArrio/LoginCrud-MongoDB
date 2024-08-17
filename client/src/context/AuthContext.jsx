@@ -41,7 +41,7 @@ export const AuthProvider = ({children}) => {
             const res = await loginRequest(user)
             console.log(res)
         } catch (error) {
-            console.log(error)
+            setErrors(error.response.data) //arreglo
         }
     }
 

@@ -9,14 +9,21 @@ function LoginPage() {
         handleSubmit, 
         formState: {errors} //func q revisa los errores
     } = useForm(); //trae las sig funciones
-    const {signin} = useAuth();
+    const {signin, errors: signinErrors} = useAuth(); //desde el context voy a importar errors-> y lo llamare signinErrors
 
 
     const onSubmit = handleSubmit(data => {
-        console.log(data)}) // ejecucion de handleSubmit donde me va a devolver los datos
+        signin(data)}) // ejecucion de handleSubmit donde me va a devolver los datos
     return(
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
            <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
+                {
+                signinErrors.map((error, i) => (
+                    <div className='bg-red-500 p-2 text-white' key={i}> {/* cada div q va a recorrer vamos a colocarle un key q sea con el indice */}
+                        {error}
+                    </div>
+                ))
+                }   
                 <h1 className='text-2xl font-bold'>Login</h1>
                 <form onSubmit={onSubmit}> 
                         {/* Captura los valores tipeados por el usuario */}
