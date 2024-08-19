@@ -19,7 +19,7 @@ function LoginPage() {
            <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
                 {
                 signinErrors.map((error, i) => (
-                    <div className='bg-red-500 p-2 text-white' key={i}> {/* cada div q va a recorrer vamos a colocarle un key q sea con el indice */}
+                    <div className='bg-red-500 p-2 text-white my-2' key={i}> {/* cada div q va a recorrer vamos a colocarle un key q sea con el indice */}
                         {error}
                     </div>
                 ))
