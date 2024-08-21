@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 //esquema para las tareas 
+//orden especifico para completar los formularios
 const taskSachema = new mongoose.Schema({
     title: {
         type: String,

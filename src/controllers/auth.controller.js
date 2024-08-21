@@ -53,7 +53,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     const {email, password} = req.body //solo necesito estos datos
     try {
-
+        
         const userFound = await User.findOne({email}) //buscamos un usuario (atravez del mail)
         if (!userFound) return res.status(400).json({ message: "User not found"}) 
         
