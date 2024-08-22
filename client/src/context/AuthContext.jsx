@@ -1,4 +1,4 @@
-import { Children, createContext, useContext, useState} from "react";
+import { Children, createContext, useContext, useState, useEffect} from "react";
 
 import { registerRequest, loginRequest } from "../api/auth";
 
@@ -46,6 +46,13 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    useEffect (() => { //creando un timeup para desaparecer mens de error
+        if (errors.length > 0){ //si hay un error como min
+            setTimeout(()=> {
+                setErrors([])
+            },5000)
+        }
+    }, [errors])
     //exportamos signup y signin
     return <AuthContext.Provider 
         value={{ signup, signin, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
