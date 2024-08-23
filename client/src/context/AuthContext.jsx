@@ -46,11 +46,12 @@ export const AuthProvider = ({children}) => {
         }
     }
 
-    useEffect (() => { //creando un timeup para desaparecer mens de error
+    useEffect (() => { //creando un timeup para desaparecer mensaje de error
         if (errors.length > 0){ //si hay un error como min
-            setTimeout(()=> {
+            const timer = setTimeout(()=> { //guardamos el timer para ahorrar recursos
                 setErrors([])
-            },5000)
+            },5000) //a los 5seg
+            return () => clearTimeout(timer) //elimina el timer
         }
     }, [errors])
     //exportamos signup y signin

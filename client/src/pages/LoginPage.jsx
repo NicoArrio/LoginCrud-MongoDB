@@ -1,6 +1,7 @@
 
 import {useForm} from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
+import {Link} from 'react-router-dom';
 
 function LoginPage() {
 
@@ -49,6 +50,10 @@ function LoginPage() {
                         {/* Botón de registro */}
                         <button type="submit"> sign in </button>
                 </form>
+                <p className="flex gap-x-2 justify-between">
+                    Don't have an account? <Link to="/register"
+                    className='text-sky-500'>Sign up</Link>
+                </p>
            </div>
         </div>
     )
