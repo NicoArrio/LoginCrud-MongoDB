@@ -41,8 +41,10 @@ export const AuthProvider = ({children}) => {
             const res = await loginRequest(user)
             console.log(res)
         } catch (error) {
-            console.log(error)
-            setErrors(error.response.data) //arreglo
+            if (Array.isArray(error.response.data)){ //el obj array de (e.r.d = formato de axios), si el error es un array
+                return setErrors(error.response.data) // establecelo tal cual y acaba ahi
+            }
+            setErrors([error.response.data.message]) // sino es un array, establece y crea un array (con el error con la propiedad message)
         }
     }
 
@@ -54,6 +56,7 @@ export const AuthProvider = ({children}) => {
             return () => clearTimeout(timer) //elimina el timer
         }
     }, [errors])
+
     //exportamos signup y signin
     return <AuthContext.Provider 
         value={{ signup, signin, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
