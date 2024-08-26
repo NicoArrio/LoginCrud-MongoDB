@@ -1,6 +1,6 @@
 import React from "react";
 
-function TaskPage() {
+function TaskPage() { //creacion de pagina task
     return(
         <div>TaskPage</div>
     )
