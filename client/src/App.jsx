@@ -16,10 +16,13 @@ function App() {
                     <Route path="/" element={<HomePage/>} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/tasks" element={<TaskPage/>} />
-                    <Route path="/add-task" element={<TaskFormePage/>} />
-                    <Route path="/task/:id" element={<TaskFormePage/>} />
-                    <Route path="/profile" element={<ProfilePage/>} />
+                    
+                    <Route element={}> {/* elemento padre de rutas protegidas */}
+                      <Route path="/tasks" element={<TaskPage/>} />
+                      <Route path="/add-task" element={<TaskFormePage/>} />
+                      <Route path="/task/:id" element={<TaskFormePage/>} />
+                      <Route path="/profile" element={<ProfilePage/>} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
