@@ -1,6 +1,6 @@
-import { Children, createContext, useContext, useState, useEffect} from "react";
-
+import { createContext, useContext, useState, useEffect} from "react";
 import { registerRequest, loginRequest } from "../api/auth";
+import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
@@ -39,7 +39,9 @@ export const AuthProvider = ({children}) => {
     const signin = async (user) => {
         try {
             const res = await loginRequest(user)
-            console.log(res)
+            console.log(res) //muestra en consola el req
+            setIsAuthenticated(true) //autentifica al user si se loguea
+            setUser(res.data) //guarda los datos del user 
         } catch (error) {
             if (Array.isArray(error.response.data)){ //el obj array de (e.r.d = formato de axios), si el error es un array
                 return setErrors(error.response.data) // establecelo tal cual y acaba ahi
@@ -56,6 +58,14 @@ export const AuthProvider = ({children}) => {
             return () => clearTimeout(timer) //elimina el timer
         }
     }, [errors])
+
+    useEffect(() => { //si carga la app, haras una consulta al back 
+        const cookies = Cookies.get()
+
+        if (cookies.token) {
+            console.log(cookies.token);
+        }
+    },[]) 
 
     //exportamos signup y signin
     return <AuthContext.Provider 

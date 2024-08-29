@@ -8,6 +8,8 @@ import TaskFormePage from './pages/taskFormPage';
 import ProfilePage from './pages/ProfilePage';
 import HomePage from './pages/HomePage';
 
+import ProtectedRoute from './ProtectedRoute';
+
 function App() {
   return (
     <AuthProvider> {/* Asegúrate de que AuthProvider envuelva las rutas */}
@@ -17,7 +19,7 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     
-                    <Route element={}> {/* elemento padre de rutas protegidas */}
+                    <Route element={<ProtectedRoute/>}> {/* elemento padre de rutas protegidas */}
                       <Route path="/tasks" element={<TaskPage/>} />
                       <Route path="/add-task" element={<TaskFormePage/>} />
                       <Route path="/task/:id" element={<TaskFormePage/>} />

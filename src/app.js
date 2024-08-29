@@ -10,6 +10,7 @@ const app = express(); // Inicializar la aplicación
 
 app.use(cors({//permite conectar todos los dominios a este servidor
     origin: 'http://localhost:5173',//dominio especifico q queremos q se conecte
+    credentials: true //para podes establecer las cookies
 })); 
 
 app.use(morgan('dev')); // Usar morgan para el logging
