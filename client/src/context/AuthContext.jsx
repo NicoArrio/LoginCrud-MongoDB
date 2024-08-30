@@ -60,10 +60,10 @@ export const AuthProvider = ({children}) => {
     }, [errors])
 
     useEffect(() => { //si carga la app, haras una consulta al back 
-        const cookies = Cookies.get()
+        const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
 
-        if (cookies.token) {
-            console.log(cookies.token);
+        if (cookies.token) { 
+            console.log(cookies.token); // Si existe una cookie llamada 'token', la imprime en la consola
         }
     },[]) 
 
