@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect} from "react";
-import { registerRequest, loginRequest } from "../api/auth";
+import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
 import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
@@ -60,11 +60,24 @@ export const AuthProvider = ({children}) => {
     }, [errors])
 
     useEffect(() => { //si carga la app, haras una consulta al back 
-        const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
+        function checkLogin () {
+            const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
 
-        if (cookies.token) { 
-            console.log(cookies.token); // Si existe una cookie llamada 'token', la imprime en la consola
+            if (cookies.token) { //si hay un token 
+                try {
+                    const res = verifyTokenRequest(cookies.token) //vas a enviar desde cookie el token, q has encontrado  
+                    console.log(res.data)
+                    if (!res.data) setIsAuthenticated(false) //sino hay respuesta 
+
+                    isAuthenticated(true) //si hay respuesta
+                    setUser(res.data) // con los datos
+                } catch (error) { //si axios recibio un error 
+                    setIsAuthenticated(false) 
+                    setUser(null) //no hay usuario
+                } 
+            }
         }
+        checkLogin()//cuando carga lo ejecutaras "checkLogin"
     },[]) 
 
     //exportamos signup y signin
