@@ -19,7 +19,7 @@ const router = Router();
 router.post('/register', validateSchema(registerSchema), register); //cuando haga una peticion post a register, ejecutaras register
 router.post('/login', validateSchema(loginSchema), login);
 router.post('/logout', logout);
-router.get('/verify', verifyToken);
+router.get('/verify', verifyToken); //ruta de verificacion
 router.get('/profile', authRequired, profile) //primero valida AR antes de entrar a profile
 //export router xq creamos las rutas y tienen q anadirse a app.js
 export default router;
