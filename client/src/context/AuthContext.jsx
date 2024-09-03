@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect} from "react";
-import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
+import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth.js";
 import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
@@ -19,6 +19,7 @@ export const AuthProvider = ({children}) => {
     const [user,setUser] = useState(null) //usuario q va a ser leido en toda la app
     const [isAuthenticated, setIsAuthenticated] = useState(false);//si se registra correctamente, se autentifica
     const [errors, setErrors] = useState([]); //areglo vacio para evitar errores
+    const [loading, setLoading] = useState(true); //para que siempre este cargando
 
     /*llame a signup: va a hacer la peticion, va a recibir 
     *la respuesta y cuando reciba la respuesta. 
@@ -43,6 +44,7 @@ export const AuthProvider = ({children}) => {
             setIsAuthenticated(true) //autentifica al user si se loguea
             setUser(res.data) //guarda los datos del user 
         } catch (error) {
+            console.log(error)
             if (Array.isArray(error.response.data)){ //el obj array de (e.r.d = formato de axios), si el error es un array
                 return setErrors(error.response.data) // establecelo tal cual y acaba ahi
             }
@@ -60,29 +62,43 @@ export const AuthProvider = ({children}) => {
     }, [errors])
 
     useEffect(() => { //si carga la app, haras una consulta al back 
-        function checkLogin () {
+        async function checkLogin () {
             const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
+            console.log("Cookies:", cookies);
 
-            if (cookies.token) { //si hay un token 
-                try {
-                    const res = verifyTokenRequest(cookies.token) //vas a enviar desde cookie el token, q has encontrado  
-                    console.log(res.data)
-                    if (!res.data) setIsAuthenticated(false) //sino hay respuesta 
-
-                    isAuthenticated(true) //si hay respuesta
-                    setUser(res.data) // con los datos
-                } catch (error) { //si axios recibio un error 
-                    setIsAuthenticated(false) 
-                    setUser(null) //no hay usuario
-                } 
+            if(!cookies.token){
+                setIsAuthenticated(false);
+                setUser(null);
+                setLoading(false);
+                return;
             }
+            
+            try {
+                const res = await verifyTokenRequest(cookies.token) //vas a enviar desde cookie el token, q has encontrado  
+                console.log("Token verification response:", res);
+
+                if (!res.data) {
+                    setIsAuthenticated(false); //sino hay respuesta 
+                    setLoading(false);
+                    return;
+                }
+                setIsAuthenticated(true) //si hay respuesta
+                setUser(res.data) // con los datos
+                setLoading(false);
+            } catch (error) { //si axios recibio un error 
+                console.log("Error verifying token:", error);
+                setIsAuthenticated(false) 
+                setUser(null) //no hay usuario
+                setLoading(false)
+            } 
+            
         }
-        checkLogin()//cuando carga lo ejecutaras "checkLogin"
+        checkLogin();//cuando carga lo ejecutaras "checkLogin"
     },[]) 
 
     //exportamos signup y signin
     return <AuthContext.Provider 
-        value={{ signup, signin, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
+        value={{ signup, signin,loading, user, isAuthenticated, errors,}}>  {/* //valor obj, xq son varios datos */}
             {children} {/* Asegúrate de que esté en minúscula */}
     </AuthContext.Provider>
 }

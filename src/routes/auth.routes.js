@@ -9,7 +9,6 @@ import {
 import {authRequired} from '../middlewares/validateToken.js';
 import {validateSchema} from '../middlewares/validator.middleware.js';
 import { registerSchema,loginSchema } from '../schemas/auth.schema.js';
-import { verifyTokenRequest } from '../../client/src/api/auth.js';
 
 //objeto router, q permite hacer peticiones
 //post,put,delete,get
