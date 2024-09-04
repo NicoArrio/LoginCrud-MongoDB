@@ -27,7 +27,7 @@ function App() {
                     </Route>
                 </Routes>
             </BrowserRouter>
-        </AuthProvider>
+    </AuthProvider>
   )
 }
 

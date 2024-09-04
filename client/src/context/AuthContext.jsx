@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 //va a hacer por mi el uso del contexto 
 export const useAuth = () => {
     const context = useContext(AuthContext)
+    console.log(context)
     if (!context){
         throw new Error ("useAuth must be used within an AuthProvider")
     }
@@ -62,17 +63,16 @@ export const AuthProvider = ({children}) => {
     }, [errors])
 
     useEffect(() => { //si carga la app, haras una consulta al back 
+        console.log("AuthContext initialized");
         async function checkLogin () {
             const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
             console.log("Cookies:", cookies);
-
             if(!cookies.token){
                 setIsAuthenticated(false);
                 setUser(null);
                 setLoading(false);
                 return;
             }
-            
             try {
                 const res = await verifyTokenRequest(cookies.token) //vas a enviar desde cookie el token, q has encontrado  
                 console.log("Token verification response:", res);
@@ -84,14 +84,15 @@ export const AuthProvider = ({children}) => {
                 }
                 setIsAuthenticated(true) //si hay respuesta
                 setUser(res.data) // con los datos
-                setLoading(false);
+                //setLoading(false);
             } catch (error) { //si axios recibio un error 
                 console.log("Error verifying token:", error);
                 setIsAuthenticated(false) 
                 setUser(null) //no hay usuario
-                setLoading(false)
-            } 
-            
+                //setLoading(false)
+            } finally {
+            setLoading(false);
+            }
         }
         checkLogin();//cuando carga lo ejecutaras "checkLogin"
     },[]) 
