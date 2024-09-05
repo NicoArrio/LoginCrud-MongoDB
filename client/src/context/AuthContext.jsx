@@ -63,7 +63,7 @@ export const AuthProvider = ({children}) => {
     }, [errors])
 
     useEffect(() => { //si carga la app, haras una consulta al back 
-        console.log("AuthContext initialized");
+        console.log("AuthContext initialized"); //mensaje corroboracion de entrara al checklogin
         async function checkLogin () {
             const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
             console.log("Cookies:", cookies);
