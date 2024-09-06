@@ -66,9 +66,9 @@ export const AuthProvider = ({children}) => {
         console.log("AuthContext initialized"); //mensaje corroboracion de entrara al checklogin
         async function checkLogin () {
             const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
-            console.log("Cookies:", cookies);
+            console.log("Cookies:", cookies); //cookie del usuario mostrado en pantalla
             if(!cookies.token){
-                setIsAuthenticated(false);
+                setIsAuthenticated(false); 
                 setUser(null);
                 setLoading(false);
                 return;
