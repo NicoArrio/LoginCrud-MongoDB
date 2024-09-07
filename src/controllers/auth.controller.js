@@ -33,9 +33,9 @@ export const register = async (req, res) => {
 
         res.cookie('token', token, {//5-lo estableces en una cookie la respuesta(metodo express)
 
+            sameSite: 'none', // no esta en el mismo dominio
+            secure: true, // 
             httpOnly: true, // asegura que la cookie solo sea accesible desde el servidor
-            secure: process.env.NODE_ENV === 'production', // enviar cookies solo a través de HTTPS en producción
-            sameSite: 'lax', // protección CSRF
         }); 
 
         res.json({ //6-envias la respuesta

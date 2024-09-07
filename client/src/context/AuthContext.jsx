@@ -62,40 +62,40 @@ export const AuthProvider = ({children}) => {
         }
     }, [errors])
 
-    useEffect(() => { //si carga la app, haras una consulta al back 
-        console.log("AuthContext initialized"); //mensaje corroboracion de entrara al checklogin
+    useEffect(() => { // Cuando la aplicación carga, realizará una consulta al backend para verificar si el usuario está autenticado.
+        console.log("AuthContext initialized"); // Mensaje de confirmación de que la función 'checkLogin' se ha inicializado.
         async function checkLogin () {
             const cookies = Cookies.get() // Obtiene todas las cookies almacenadas en el navegador
-            console.log("Cookies:", cookies); //cookie del usuario mostrado en pantalla
-            if(!cookies.token){
-                setIsAuthenticated(false); 
-                setUser(null);
-                setLoading(false);
-                return;
+            console.log("Cookies:", cookies); // Muestra las cookies del usuario en la consola para depuración.
+            if(!cookies.token){ // Si no hay un token presente en las cookies, el usuario no está autenticado.
+                setIsAuthenticated(false); // Establece que el usuario no está autenticado.
+                setUser(null); // No hay usuario, por lo tanto, se establece el valor de 'user' como null.
+                setLoading(false); // Finaliza la carga, ya que no hay necesidad de verificar el token.
+                return; // Salimos de la función porque no hay token.
             }
             try {
-                const res = await verifyTokenRequest(cookies.token) //vas a enviar desde cookie el token, q has encontrado  
-                console.log("Token verification response:", res);
+                const res = await verifyTokenRequest(cookies.token) // Enviaremos el token desde las cookies para verificarlo con el backend.
+                console.log("Token verification response:", res); // Muestra la respuesta de la verificación del token para depuración.
 
-                if (!res.data) {
-                    setIsAuthenticated(false); //sino hay respuesta 
-                    setLoading(false);
-                    return;
+                if (!res.data) { // Si no hay datos en la respuesta, significa que el token no es válido o ha expirado.
+                    setIsAuthenticated(false);  // El usuario no está autenticado. 
+                    setLoading(false); // Finaliza la carga.
+                    return; // Salimos de la función porque la verificación falló.
                 }
-                setIsAuthenticated(true) //si hay respuesta
-                setUser(res.data) // con los datos
+                setIsAuthenticated(true)  // Si la respuesta contiene datos, significa que el token es válido, por lo que el usuario está autenticado.
+                setUser(res.data) // // Establecemos los datos del usuario que fueron devueltos por la verificación del token.
                 //setLoading(false);
-            } catch (error) { //si axios recibio un error 
-                console.log("Error verifying token:", error);
-                setIsAuthenticated(false) 
-                setUser(null) //no hay usuario
+            } catch (error) { // Si ocurre un error durante la solicitud de verificación del token.
+                console.log("Error verifying token:", error); // Muestra el error en la consola para depuración.
+                setIsAuthenticated(false) // En caso de error, asumimos que el usuario no está autenticado.
+                setUser(null) // Como no hay usuario autenticado, lo establecemos como null.
                 //setLoading(false)
             } finally {
-            setLoading(false);
+            setLoading(false); // Siempre finalizamos la carga, independientemente de si la solicitud fue exitosa o falló.
             }
         }
         checkLogin();//cuando carga lo ejecutaras "checkLogin"
-    },[]) 
+    },[]) // El array vacío indica que este efecto solo se ejecuta una vez, cuando el componente se monta.
 
     //exportamos signup y signin
     return <AuthContext.Provider 
