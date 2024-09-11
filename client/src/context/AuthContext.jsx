@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
     const signup = async (user) => {
         try {
             const res = await registerRequest(user) //solicitud HTTP envía los datos del formulario al servidor
-            console.log(res.data);
+            console.log("The res data is ",res.data);
             setUser(res.data);//lo establecemos
             setIsAuthenticated(true);//autenticado
         } catch (error) {
